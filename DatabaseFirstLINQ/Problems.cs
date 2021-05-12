@@ -18,8 +18,8 @@ namespace DatabaseFirstLINQ
             //ProblemOne();
             //ProblemTwo();
             //ProblemThree();
-            ProblemFour();
-            //ProblemFive();
+            //ProblemFour();
+            ProblemFive();
             //ProblemSix();
             //ProblemSeven();
             //ProblemEight();
@@ -86,7 +86,13 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that gets all of the users who registered BEFORE 2016
             // Then print each user's email and registration date to the console.
-
+            var users = _context.Users;
+            var dateBefore2016 = new DateTime(2016, 1 , 1);
+            var userRegDate = users.Where(u => u.RegistrationDate < dateBefore2016);
+            foreach (var user in userRegDate)
+            {
+                Console.WriteLine(user.Email + " " + user.RegistrationDate );
+            }
         }
 
         private void ProblemSix()
