@@ -24,9 +24,9 @@ namespace DatabaseFirstLINQ
             //ProblemSeven();
             //ProblemEight();
             //ProblemNine();
-            ProblemTen();
+            //ProblemTen();
             //ProblemEleven();
-            //ProblemTwelve();
+            ProblemTwelve();
             //ProblemThirteen();
             //ProblemFourteen();
             //ProblemFifteen();
@@ -152,11 +152,22 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that retreives all of the products in the shopping cart of users who have the role of "Employee".
             // Then print the user's email as well as the product's name, price, and quantity to the console.
-            var employees = _context.UserRoles.Include(ur => ur.User).Include(ur => ur.Role).Where(ur => ur.Role.RoleName == "Employee");
-            foreach (UserRole employee in employees) 
-            {
-                Console.WriteLine(employee.User.Email);
-            }
+            //var users = _context.Users;
+            //var employees = _context.UserRoles.Include(ur => ur.User.ShoppingCarts).Include(ur => ur.Products).Include(ur => ur.Role).Where(ur => ur.Role.RoleName == "Employee").ToList();
+            //var shoppingCarts = _context.ShoppingCarts.Include(sc => sc.User).Include(sc => sc.User.UserRoles).Include(sc => sc.User).Include(sc => sc.User.Id).Include(sc => sc.UserId).Include(sc => sc.User.ShoppingCarts).Include(sc => sc.Product).ToList();
+            //var final = shoppingCarts.Intersect(employees);
+
+
+            //foreach (UserRole employee in employees)
+
+            //{
+            //    Console.WriteLine(employee.User.Email + ' ' + employee.User.ShoppingCarts);
+            //}
+
+            //foreach (ShoppingCart shoppingCart in shoppingCarts)
+            //{
+            //    Console.WriteLine(shoppingCart.User.Email);
+            //}
             //got the employees email to print out user roles should allow us to access who the employees are but it is throwing an error.  will look tommorow.
             //int products = _context.ShoppingCarts.Include(sc => sc.User).Include(sc => sc.Product).Where(sc => sc.User.UserRoles = 2);
         }
@@ -180,6 +191,15 @@ namespace DatabaseFirstLINQ
         private void ProblemTwelve()
         {
             // Create a new Product object and add that product to the Products table using LINQ.
+
+            Product newProduct = new Product()
+            {
+                Name = "Back to school necklace",
+                Description = "This hot item will get you all the looks going back to school",
+                Price = 10
+            };
+            _context.Products.Add(newProduct);
+            _context.SaveChanges();
 
         }
 
