@@ -23,8 +23,8 @@ namespace DatabaseFirstLINQ
             //ProblemSix();
             //ProblemSeven();
             //ProblemEight();
-            ProblemNine();
-            //ProblemTen();
+            //ProblemNine();
+            ProblemTen();
             //ProblemEleven();
             //ProblemTwelve();
             //ProblemThirteen();
@@ -127,8 +127,8 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that retreives all of the products in the shopping cart of the user who has the email "afton@gmail.com".
             // Then print the product's name, price, and quantity to the console.
-            var customer = _context.ShoppingCarts.Include(sc => sc.User).Include(sc => sc.Product).Where(sc => sc.User.Email == "afton@gmail.com").ToList();
-            foreach (ShoppingCart product in customer)
+            var products = _context.ShoppingCarts.Include(sc => sc.User).Include(sc => sc.Product).Where(sc => sc.User.Email == "afton@gmail.com").ToList();
+            foreach (ShoppingCart product in products)
             {
                 Console.WriteLine($" Name:{product.Product.Name} Price: {product.Product.Price}  Quantity: {product.Quantity}");
             }
@@ -152,7 +152,13 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that retreives all of the products in the shopping cart of users who have the role of "Employee".
             // Then print the user's email as well as the product's name, price, and quantity to the console.
-
+            var employees = _context.UserRoles.Include(ur => ur.User).Include(ur => ur.Role).Where(ur => ur.Role.RoleName == "Employee");
+            foreach (UserRole employee in employees) 
+            {
+                Console.WriteLine(employee.User.Email);
+            }
+            //got the employees email to print out user roles should allow us to access who the employees are but it is throwing an error.  will look tommorow.
+            //int products = _context.ShoppingCarts.Include(sc => sc.User).Include(sc => sc.Product).Where(sc => sc.User.UserRoles = 2);
         }
 
         // <><><><><><><><> CUD (Create, Update, Delete) Actions <><><><><><><><><>
