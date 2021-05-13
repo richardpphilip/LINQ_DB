@@ -33,10 +33,11 @@ namespace DatabaseFirstLINQ
             //ProblemSixteen();
             //ProblemSeventeen();
             //ProblemEighteen();
-            ProblemNineteen();
-            ProblemTwenty();
+            //ProblemNineteen();
+            //ProblemTwenty();
+            BonusOne();
         }
-        
+
         // <><><><><><><><> R Actions (Read) <><><><><><><><><>
         private void ProblemOne()
         {
@@ -87,11 +88,11 @@ namespace DatabaseFirstLINQ
             // Write a LINQ query that gets all of the users who registered BEFORE 2016
             // Then print each user's email and registration date to the console.
             var users = _context.Users;
-            var dateBefore2016 = new DateTime(2016, 1 , 1);
+            var dateBefore2016 = new DateTime(2016, 1, 1);
             var userRegDate = users.Where(u => u.RegistrationDate < dateBefore2016);
             foreach (var user in userRegDate)
             {
-                Console.WriteLine(user.Email + " " + user.RegistrationDate );
+                Console.WriteLine(user.Email + " " + user.RegistrationDate);
             }
         }
 
@@ -139,11 +140,11 @@ namespace DatabaseFirstLINQ
             // HINT: End of query will be: .Select(sc => sc.Product.Price).Sum();
             // Then print the total of the shopping cart to the console.
             var sumOfCart = _context.ShoppingCarts.Include(sc => sc.User).Include(sc => sc.Product).Where(sc => sc.User.Email == "oda@gmail.com").Select(sc => sc.Product.Price).Sum();
-            
-            
-              Console.WriteLine(sumOfCart);
 
-            
+
+            Console.WriteLine(sumOfCart);
+
+
 
 
         }
@@ -167,8 +168,8 @@ namespace DatabaseFirstLINQ
             {
                 Console.WriteLine($" Name:{product.Product.Name} Price: {product.Product.Price}  Quantity: {product.Quantity}");
             }
-        
-    }
+
+        }
 
         // <><><><><><><><> CUD (Create, Update, Delete) Actions <><><><><><><><><>
 
@@ -248,7 +249,7 @@ namespace DatabaseFirstLINQ
             product.Price = 20;
             _context.Products.Update(product);
             _context.SaveChanges();
-                
+
 
         }
 
@@ -305,7 +306,34 @@ namespace DatabaseFirstLINQ
             // Prompt the user to enter in an email and password through the console.
             // Take the email and password and check if the there is a person that matches that combination.
             // Print "Signed In!" to the console if they exists and the values match otherwise print "Invalid Email or Password.".
-        }
+
+            Console.WriteLine("Please enter your email");
+            var userEmail = Console.ReadLine();
+            Console.WriteLine("Please enter your password");
+            string userPassword = Console.ReadLine();
+            Console.WriteLine($"{userEmail} {userPassword}");
+            var users = _context.Users.Where(u => u.Email == userEmail & u.Password == userPassword).ToList();
+            if (users.Count != 0)
+            {
+                Console.WriteLine("you logged in");
+            }
+            else
+                Console.WriteLine("invalid password or email");
+        }            
+                
+            
+            
+            
+        //    foreach (User user in users)
+        //    {
+        //        if (user.Email == userEmail & user.Password == userPassword)
+        //            Console.WriteLine("log in was a success");
+        //        else
+        //            Console.WriteLine("Invalid Email or Password");
+        //    }
+        //}
+           
+    
 
         private void BonusTwo()
         {
