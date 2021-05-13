@@ -35,7 +35,8 @@ namespace DatabaseFirstLINQ
             //ProblemEighteen();
             //ProblemNineteen();
             //ProblemTwenty();
-            BonusOne();
+            //BonusOne();
+            BonusTwo();
         }
 
         // <><><><><><><><> R Actions (Read) <><><><><><><><><>
@@ -139,7 +140,7 @@ namespace DatabaseFirstLINQ
             // Write a LINQ query that retreives all of the products in the shopping cart of the user who has the email "oda@gmail.com" and returns the sum of all of the products prices.
             // HINT: End of query will be: .Select(sc => sc.Product.Price).Sum();
             // Then print the total of the shopping cart to the console.
-            var sumOfCart = _context.ShoppingCarts.Include(sc => sc.User).Include(sc => sc.Product).Where(sc => sc.User.Email == "oda@gmail.com").Select(sc => sc.Product.Price).Sum();
+            var sumOfCart = _context.ShoppingCarts.Include(sc => sc.User).Include(sc => sc.Product).Where(sc => sc.User.Email == "bibi@gmail.com").Select(sc => sc.Product.Price).Sum();
 
 
             Console.WriteLine(sumOfCart);
@@ -319,26 +320,23 @@ namespace DatabaseFirstLINQ
             }
             else
                 Console.WriteLine("invalid password or email");
-        }            
-                
-            
-            
-            
-        //    foreach (User user in users)
-        //    {
-        //        if (user.Email == userEmail & user.Password == userPassword)
-        //            Console.WriteLine("log in was a success");
-        //        else
-        //            Console.WriteLine("Invalid Email or Password");
-        //    }
-        //}
-           
-    
+        }
 
         private void BonusTwo()
         {
             // Write a query that finds the total of every users shopping cart products using LINQ.
             // Display the total of each users shopping cart as well as the total of the toals to the console.
+            var users = _context.Users;
+            var shoppingcarts = _context.ShoppingCarts;
+            decimal shoppingCartTotal = 0;
+            for (int i = 2; i < users.ToList().Count + 2 ; i++)
+            {
+                var sumOfCart = _context.ShoppingCarts.Include(sc => sc.User).Include(sc => sc.Product).Where(sc => sc.User.Id == i).Select(sc => sc.Product.Price).Sum();
+                sumOfCart = Decimal.ToInt32(sumOfCart);
+                Console.WriteLine("This cart total" + " " + sumOfCart);
+                shoppingCartTotal += sumOfCart;
+            }
+            Console.WriteLine("total of all carts" + " " + shoppingCartTotal);
         }
 
         // BIG ONE
